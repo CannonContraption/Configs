@@ -1,0 +1,31 @@
+" Syntax and line numbers are important.
+syntax on
+
+" And line numbering.
+set nu
+
+" Sets our tabstop to 4
+set tabstop=4
+
+" shows all command stuff, so displays when you hit ^[
+set showcmd
+
+" Shows an underline under the currently selected line
+set cursorline
+
+" Enables a completions menu
+set wildmenu
+
+" Stops Vim from redrawing when it needs not must
+set lazyredraw
+
+" Incremental search that updates as you type, and highlights everything
+set incsearch
+set hlsearch
+
+" Make up and down go up and down visually, so wrapped lines work as expected
+nnoremap j gj
+nnoremap k gk
+
+" The default color scheme is hard to read in LXterminal and similar, change it to something easier for standard grey-on-black terminals
+color slate

@@ -1,0 +1,52 @@
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+HISTCONTROL=ignoreboth
+
+shopt -s histappend
+
+HISTSIZE=2000
+HISTFILESIZE=2000
+
+shopt -s checkwinsize
+
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
+getgitbranch(){
+	git status > /dev/null 2>&1
+	if [ $? == 0 ]; then
+		echo -ne ' \001\033[1;36m\002'
+		gitstatuscounter.pl 2>/dev/null
+		echo -ne '\001\033[27m\002 \001\033[4m\002'
+		git branch | sed -n '/\* /s///p' | perl -pe 'chomp'
+		echo -ne '\001\033[0m\002 '
+	else
+		echo -n ''
+	fi
+}
+
+setpromptstyle(){
+	lastreturn=$?
+	if [ $lastreturn == 0 ]; then
+		echo -ne "\001\033[7;32m\002"
+	else
+		echo -ne "\001\033[7;31m\002 $lastreturn "
+	fi
+}
+PS1='$(setpromptstyle)\u@\h\[\033[m\]:\[\033[7;1;34m\]\w\[\033[m\]$(getgitbranch)\[\e[7;33m\]\$\[\e[m\] '
+
+PATH=$PATH:~/bin
+
+schooldir=~/CloudStation/School/17S
+
+alias ls='ls --color=auto'
+alias ll='ls -l'
+alias la='ls -la'
+alias dir='ls -l'
+alias echo='echo -e'
+alias synaptic='synaptic-pkexec' #If you hate ubuntu, take this out. I haven't gotten around to it.
+alias gack='echo "Ill take that to mean youre having trouble!"'
+alias tf2='steam steam://rungameid/440'
+alias gitst='git status -s'
