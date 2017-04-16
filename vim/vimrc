@@ -4,6 +4,9 @@ syntax on
 " And line numbering.
 set nu
 
+" I like auto-indent, so that's in too
+set ai
+
 " Sets our tabstop to 4
 set tabstop=4
 
