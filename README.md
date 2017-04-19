@@ -20,3 +20,8 @@ If you want this disabled, please remove the export SSH_AUTH_SOCK line from the 
 
 ## Using the Vim config
 copy the vim config file to .vimrc
+
+## XResources
+    cat XResources | xrdb -merge
+
+Simply plopping this in .XResources might not work right, so I suggest using the above.
