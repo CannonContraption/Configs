@@ -6,9 +6,13 @@ set nu
 
 " I like auto-indent, so that's in too
 set ai
+" And C-Style strict indentation is nice
+set cin
 
 " Sets our tabstop to 4
 set tabstop=4
+" And our indent size to 4
+set sw=4
 
 " shows all command stuff, so displays when you hit ^[
 set showcmd
