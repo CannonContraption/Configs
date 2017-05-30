@@ -36,3 +36,6 @@ nnoremap k gk
 
 " The default color scheme is hard to read in LXterminal and similar, change it to something easier for standard grey-on-black terminals
 color slate
+
+" Git commits are easier to handle if they wrap for you!
+au FileType gitcommit setlocal tw=72
