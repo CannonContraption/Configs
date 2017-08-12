@@ -21,10 +21,16 @@ font pango:Hack 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec urxvt
+# In previous revisions I used urxvt, delightfully retro and light. Recently,
+# I've been using the fira-sans and fira-mono fonts with solarized. xfce4-terminal
+# is very easy to bend to this purpose.
+bindsym $mod+Return exec xfce4-terminal
 
 # Start a browser
 bindsym $mod+Shift+f exec firefox
+
+# Launch Emacs
+bindsym $mod+Shift+m exec emacs
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -183,6 +189,6 @@ bindsym XF86Display exec arandr
 # My laptop is annoying and outputs Mod4+p for this button
 bindsym Mod4+p exec arandr
 
-# I am a sucker for GNOME's Godafoss Iceland background. If you don't have this installed, please select the wallpaper of your choice.
-# I strongly suggest you use this, as blank backgrounds can lead to compositing artifacts a la Windows XP
+# GNOME's relatively new Godafoss wallpaper is a nice wallpaper which can be found anywhere.
+# To use: install feh and gnome-backgrounds
 exec feh --bg-scale /usr/share/backgrounds/gnome/Godafoss_Iceland.jpg
