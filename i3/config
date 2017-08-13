@@ -5,6 +5,9 @@
 # this file and re-run i3-config-wizard(1).
 #
 
+exec ~/.screenlayout/threehome.sh
+exec sleep .5
+
 # i3 config file (v4)
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
@@ -15,13 +18,19 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Hack 8
+font pango:Fira Mono 8
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec xfce4-terminal
+
+# start Emacs
+bindsym $mod+Shift+m exec emacs
+
+# Start GVim
+bindsym $mod+Shift+g exec gvim
 
 # Start a browser
 bindsym $mod+Shift+f exec firefox
@@ -30,7 +39,7 @@ bindsym $mod+Shift+f exec firefox
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher) Note this is the command-based one, not the .desktop based one.
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec dmenu_run -fn 'Fira Mono -8' -f -i
 
 # change focus
 bindsym $mod+j focus left
@@ -169,7 +178,7 @@ bar {
         status_command i3status
 	position top
 	tray_padding 5
-	font pango:Noto Mono 8
+	font pango:Fira Mono 8
 	separator_symbol " | "
 }
 
@@ -182,7 +191,9 @@ bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
 bindsym XF86Display exec arandr
 # My laptop is annoying and outputs Mod4+p for this button
 bindsym Mod4+p exec arandr
+# Lock screen, $mod+Shift+i is free and represents i3lock well
+bindsym $mod+Shift+i exec i3lock -c 004400 # I like green
 
-# I am a sucker for GNOME's Godafoss Iceland background. If you don't have this installed, please select the wallpaper of your choice.
-# I strongly suggest you use this, as blank backgrounds can lead to compositing artifacts a la Windows XP
-exec feh --bg-scale /usr/share/backgrounds/gnome/Godafoss_Iceland.jpg
+# If you visit Fedora's website, you can find this wallpaper. It goes
+# well with solarized stuff.
+exec feh --bg-center /home/jim/Downloads/extras/droplet-on-pebble.jpg
