@@ -5,7 +5,7 @@
 # this file and re-run i3-config-wizard(1).
 #
 
-exec ~/.screenlayout/threehome.sh
+exec compton -CGb
 exec sleep .5
 
 # i3 config file (v4)
