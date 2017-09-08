@@ -18,7 +18,8 @@ set sw=4
 set showcmd
 
 " Shows an underline under the currently selected line
-set cursorline
+"set cursorline
+" Disabled since it causes issues on some setups
 
 " Enables a completions menu
 set wildmenu
