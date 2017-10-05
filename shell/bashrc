@@ -12,7 +12,13 @@ HISTFILESIZE=2000
 
 shopt -s checkwinsize
 
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+if [ -z ${SSH_AUTH_SOCK+x} ]; then
+	export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+fi
+
+bk(){
+	$@ > /dev/null 2>&1 &
+}
 
 getgitbranch(){
 	git status > /dev/null 2>&1
@@ -35,6 +41,7 @@ setpromptstyle(){
 		echo -ne "\001\033[7;31m\002 $lastreturn "
 	fi
 }
+
 PS1='$(setpromptstyle)\u@\h\[\033[m\]:\[\033[7;1;34m\]\w\[\033[m\]$(getgitbranch)\[\e[7;33m\]\$\[\e[m\] '
 
 PATH=$PATH:~/bin
@@ -46,7 +53,6 @@ alias ll='ls -l'
 alias la='ls -la'
 alias dir='ls -l'
 alias echo='echo -e'
-alias synaptic='synaptic-pkexec' #If you hate ubuntu, take this out. I haven't gotten around to it.
 alias gack='echo "Ill take that to mean youre having trouble!"'
 alias tf2='steam steam://rungameid/440'
 alias gitst='git status -s'
