@@ -1,0 +1,122 @@
+// vim:ts=4:sw=4:et
+{
+    // tabbed split container with 2 children
+    "border": "pixel",
+    "floating": "auto_off",
+    "layout": "tabbed",
+    "percent": 0.7,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 677,
+               "width": 752,
+               "x": 0,
+               "y": 0
+            },
+            "name": "code",
+            "percent": 0.5,
+            "swallows": [
+               {
+               "class": "^Emacs$",
+               "instance": "^code$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 526,
+               "width": 1340,
+               "x": 0,
+               "y": 0
+            },
+            "name": "Mozilla Firefox",
+            "percent": 0.5,
+            "swallows": [
+               {
+               "class": "^Firefox$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+
+{
+    // splitv split container with 3 children
+    "border": "pixel",
+    "floating": "auto_off",
+    "layout": "splitv",
+    "percent": 0.3,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 340,
+               "width": 576,
+               "x": 0,
+               "y": 0
+            },
+            "name": "jim@ScenicCityCenter:~",
+            "percent": 0.333333333333333,
+            "swallows": [
+               {
+                "class": "^URxvt$",
+                "instance": "^compile$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 340,
+               "width": 576,
+               "x": 0,
+               "y": 0
+            },
+            "name": "jim@ScenicCityCenter:~",
+            "percent": 0.333333333333333,
+            "swallows": [
+               {
+                "class": "^URxvt$",
+                "instance": "^execrun$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "pixel",
+            "current_border_width": 2,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 340,
+               "width": 576,
+               "x": 0,
+               "y": 0
+            },
+            "name": "jim@ScenicCityCenter:~",
+            "percent": 0.333333333333333,
+            "swallows": [
+               {
+                "class": "^URxvt$",
+                "instance": "^debug$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+
