@@ -1,0 +1,197 @@
+################################################################################
+ #####
+#     # #    # ###### #      #
+#       #    # #      #      #
+ #####  ###### #####  #      #
+      # #    # #      #      #
+#     # #    # #      #      #
+ #####  #    # ###### ###### ######
+
+ #####
+#     # ###### ##### ##### # #    #  ####   ####
+#       #        #     #   # ##   # #    # #
+ #####  #####    #     #   # # #  # #       ####
+      # #        #     #   # #  # # #  ###      #
+#     # #        #     #   # #   ## #    # #    #
+ #####  ######   #     #   # #    #  ####   ####
+
+
+HISTFILE=~/.histfile
+HISTSIZE=4000
+SAVEHIST=4000
+setopt appendhistory beep extendedglob
+bindkey -e
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/jim/.zshrc'
+
+#function zle-line-init ()   { echoti smkx }
+#function zle-line-finish () { echoti rmkx }
+#zle -N zle-line-init
+#zle -N zle-line-finish
+
+bindkey "${terminfo[khome]}" beginning-of-line
+bindkey "${terminfo[kend]}" end-of-line
+autoload -Uz compinit
+compinit
+setopt histignoredups histignorespace
+if [ -e .sessionincludes ]; then
+	source ~/.sessionincludes
+fi
+
+################################################################################
+#     #
+#     #  ####  ###### ###### #    # #
+#     # #      #      #      #    # #
+#     #  ####  #####  #####  #    # #
+#     #      # #      #      #    # #
+#     # #    # #      #      #    # #
+ #####   ####  ###### #       ####  ######
+
+#######
+#       #    # #    #  ####  ##### #  ####  #    #  ####
+#       #    # ##   # #    #   #   # #    # ##   # #
+#####   #    # # #  # #        #   # #    # # #  #  ####
+#       #    # #  # # #        #   # #    # #  # #      #
+#       #    # #   ## #    #   #   # #    # #   ## #    #
+#        ####  #    #  ####    #   #  ####  #    #  ####
+
+# bk - background a command and suppress its output
+bk() {
+	$@ > /dev/null 2>&1 &
+}
+
+# shtask - tasksh alternative that runs with a shell only, no binaries
+shtask() {
+	echo -ne "\033]0;shtask: $(task +PENDING count) remaining\007"
+	task next
+    lineinput="junk"
+    echo -n 'task> '
+    read -A lineinput
+    while [ $lineinput[1] != 'exit' ]; do
+        task $lineinput[*]
+		echo -ne "\033]0;shtask: $(task +PENDING count) remaining\007"
+        echo -n 'task> '
+        read -A lineinput
+    done
+}
+
+# ti - task inbox- insert a task into the 'inbox' tag.
+ti(){
+	task +inbox add $*
+}
+
+# sti - show task inbox
+sti(){
+	task +inbox
+}
+
+# batcap - BATtery CAPacity checker
+batcap(){
+	batid=$(ls /sys/class/power_supply | grep BAT | head -1)
+	capacity=$(cat /sys/class/power_supply/$batid/capacity)
+	echo $capacity'% on '$batid
+}
+
+################################################################################
+ #####
+#     # #    # ###### #      #
+#       #    # #      #      #
+ #####  ###### #####  #      #
+      # #    # #      #      #
+#     # #    # #      #      #
+ #####  #    # ###### ###### ######
+
+######
+#     # #####   ####  #    # #####  #####
+#     # #    # #    # ##  ## #    #   #
+######  #    # #    # # ## # #    #   #
+#       #####  #    # #    # #####    #
+#       #   #  #    # #    # #        #
+#       #    #  ####  #    # #        #
+
+lastreturn() {
+	RCODE=$?
+	if [ $RCODE = 0 ]; then
+		echo -ne '%{\033[7;32m%}'
+	else
+		echo -ne "%{\033[7;31m%} $RCODE "
+	fi
+}
+getgitbranch() {
+	git status > /dev/null 2>&1
+	if [ $? = 0 ]; then
+		echo -ne "%{\033[1;36m%} "
+		echo -n $(git status -s 2>/dev/null | wc -l)
+		echo -ne "%{\033[27m%} %{\033[4m%}"
+		echo -n $(git branch | sed -n '/\* /s///p')
+		echo -ne '%{\033[m%} '
+	else
+		echo -n ''
+	fi
+}
+setopt promptsubst
+PROMPT=$'`lastreturn`%n@%m%{\033[0;7m%}:%{\e[7;1;34m%}%~%{\e[m%}`getgitbranch`\n%{\033[7;1;33m%}%%%{\e[0m%} '
+
+################################################################################
+ #####
+#     # #    #  ####  #####  #####  ####  #    # #####  ####
+#       #    # #    # #    #   #   #    # #    #   #   #
+ #####  ###### #    # #    #   #   #      #    #   #    ####
+      # #    # #    # #####    #   #      #    #   #        #
+#     # #    # #    # #   #    #   #    # #    #   #   #    #
+ #####  #    #  ####  #    #   #    ####   ####    #    ####
+
+alias ls='ls --color=auto'
+alias ll='ls -l'
+alias la='ls -la'
+alias gitst='git status -s'
+alias hgst='hg status'
+alias cmacs='emacsclient -c'
+alias ncmpcpp='tput smkx; /usr/bin/ncmpcpp; tput rmkx' # zsh fix for del key
+alias tma='tmux attach'
+
+################################################################################
+#######
+#       #    # #    # # #####   ####  #    # #    # ###### #    # #####
+#       ##   # #    # # #    # #    # ##   # ##  ## #      ##   #   #
+#####   # #  # #    # # #    # #    # # #  # # ## # #####  # #  #   #
+#       #  # # #    # # #####  #    # #  # # #    # #      #  # #   #
+#       #   ##  #  #  # #   #  #    # #   ## #    # #      #   ##   #
+####### #    #   ##   # #    #  ####  #    # #    # ###### #    #   #
+
+ #####
+#     # ###### ##### ##### # #    #  ####   ####
+#       #        #     #   # ##   # #    # #
+ #####  #####    #     #   # # #  # #       ####
+      # #        #     #   # #  # # #  ###      #
+#     # #        #     #   # #   ## #    # #    #
+ #####  ######   #     #   # #    #  ####   ####
+
+export EDITOR='vim'
+if [ -z ${SSH_AUTH_SOCK+x} ]; then
+	export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+fi
+precmd(){
+	echo -ne "\033]0;zsh\007" # Set the window title to 'zsh'
+}
+
+################################################################################
+###
+ #  #    # # ##### #   ##   #
+ #  ##   # #   #   #  #  #  #
+ #  # #  # #   #   # #    # #
+ #  #  # # #   #   # ###### #
+ #  #   ## #   #   # #    # #
+### #    # #   #   # #    # ######
+
+ #####
+#     # #####    ##   #    # #    #  ####
+#       #    #  #  #  #    # ##   # #
+ #####  #    # #    # #    # # #  #  ####
+      # #####  ###### # ## # #  # #      #
+#     # #      #    # ##  ## #   ## #    #
+ #####  #      #    # #    # #    #  ####
+
+echo "Welcome to the Device." | figlet -f smslant 
+
