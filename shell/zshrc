@@ -25,11 +25,6 @@ bindkey -e
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/jim/.zshrc'
 
-#function zle-line-init ()   { echoti smkx }
-#function zle-line-finish () { echoti rmkx }
-#zle -N zle-line-init
-#zle -N zle-line-finish
-
 bindkey "${terminfo[khome]}" beginning-of-line
 bindkey "${terminfo[kend]}" end-of-line
 autoload -Uz compinit
@@ -66,19 +61,24 @@ shtask() {
 	echo -ne "\033]0;shtask: $(task +PENDING count) remaining\007"
 	task next
     lineinput="junk"
-    echo -n 'task> '
+    echo -n 'task ('
+	echo -n $(task count +inbox +PENDING) | tee /dev/shm/inboxcount
+	echo -n ')> '
     read -A lineinput
     while [ $lineinput[1] != 'exit' ]; do
         task $lineinput[*]
 		echo -ne "\033]0;shtask: $(task +PENDING count) remaining\007"
-        echo -n 'task> '
+        echo -n 'task ('
+		echo -n $(task count +inbox +PENDING) | tee /dev/shm/inboxcount
+		echo -n ')> '
         read -A lineinput
     done
 }
 
 # ti - task inbox- insert a task into the 'inbox' tag.
 ti(){
-	task +inbox add $*
+    task +inbox add $*
+    task count +inbox +PENDING > /dev/shm/inboxcount
 }
 
 # sti - show task inbox
